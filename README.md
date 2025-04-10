@@ -4,13 +4,6 @@
 Este proyecto es una aplicación de consola en C# que procesa archivos CSV conteniendo transacciones financieras. La aplicación está diseñada para leer, procesar y analizar transacciones financieras, generando un reporte con estadísticas importantes como balance final, transacción de mayor monto y conteo de operaciones por tipo.
 
 ## Instrucciones de Ejecución
-La aplicación está desarrollada en .NET 8.0. Para ejecutar el programa:
-
-1. Asegúrese de tener .NET 8.0 SDK instalado
-2. Ejecute la aplicación usando el siguiente comando:
-```bash
-Procesador_Transacciones <ruta_archivo_csv>
-```
 
 El archivo CSV debe contener las siguientes columnas:
 - id
@@ -23,6 +16,22 @@ id,tipo,monto
 1,Crédito,1000.00
 2,Débito,500.00
 ```
+
+La aplicación está desarrollada en .NET 8.0. Para ejecutar el programa:
+
+1. Asegúrese de tener .NET 8.0 SDK instalado y Vistual Studio Community
+2. En el menu de opciones, acceder a "Depurar/Propiedades de depuracion"
+3. En la configuracion de ARGUMENTOS DE LA LINEA DE COMANDOS añadir la ruta del archivo CSV.
+4. Ejecutar en el inicio de la aplicación.
+
+
+Otra manera es usando el build generado, este se encuentra en el repositorio del proyecto, con el nombre de "app_publish v1.rar", luego de descomprimir podra ser usado desde una consola, mediante el siguiente comando:
+
+```bash
+Procesador_Transacciones.exe "<ruta_archivo_csv>"
+```
+
+
 
 ## Enfoque y Solución
 La solución implementa dos enfoques distintos para el procesamiento de archivos CSV:
