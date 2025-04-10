@@ -1,66 +1,74 @@
-# Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
+# Procesador de Transacciones Financieras
 
-## Objetivo:
+Este proyecto es una aplicación de consola en C# que procesa archivos CSV conteniendo transacciones financieras y genera un reporte con estadísticas importantes.
 
-Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
+## Estructura del Proyecto
 
-- **Balance Final:**  
-  Suma de los montos de las transacciones de tipo "Crédito" menos la suma de los montos de las transacciones de tipo "Débito".
+El proyecto está organizado en las siguientes partes principales:
 
-- **Transacción de Mayor Monto:**  
-  Identificar el ID y el monto de la transacción con el valor más alto.
+### 1. Program.cs (Punto de Entrada)
+- Valida los parámetros de entrada (ruta del archivo CSV)
+- Realiza el procesamiento de las transacciones
+- Calcula y muestra las estadísticas:
+  - Balance final (Créditos - Débitos)
+  - Transacción de mayor monto
+  - Conteo de transacciones por tipo (Crédito/Débito)
+- Incluye medición del tiempo de ejecución
 
-- **Conteo de Transacciones:**  
-  Número total de transacciones para cada tipo ("Crédito" y "Débito").
+### 2. Entidades/Transacciones.cs
+Clase que representa una transacción financiera con los siguientes atributos:
+- `Id`: Identificador único de la transacción
+- `Tipo`: Tipo de transacción ("Crédito" o "Débito")
+- `Monto`: Valor monetario de la transacción
+La clase utiliza atributos de CsvHelper para mapear las columnas del CSV, como una prueba para validar la optimizacion del proceso sin uso de libreria.
 
----
+### 3. Negocio/ProcesamientoTransacciones.cs
+Clase estática que contiene la lógica de procesamiento del archivo CSV con dos implementaciones:
 
-## Instrucciones
+1. `ProcesarArchivoCSVDefault`: 
+   - Implementación optimizada usando lecturas directas del archivo
+   - Detecta automáticamente los índices de las columnas
+   - Procesa línea por línea el archivo CSV
+   - Manejo de errores robusto
 
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
+2. `ProcesarArchivoCSVHelper`:
+   - Implementación alternativa usando la librería CsvHelper
+   - Más simple pero menos optimizada
+   - Útil para casos donde se requiere mayor flexibilidad en el mapeo
 
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
+## Uso de la Aplicación
 
-   ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
-   ```
+```bash
+Procesador_Transacciones <ruta_archivo_csv>
+```
 
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
+### Formato del Archivo CSV
+El archivo CSV debe contener las siguientes columnas:
+- id
+- tipo
+- monto
 
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
-   ```
+Ejemplo:
+```csv
+id,tipo,monto
+1,Crédito,1000.00
+2,Débito,500.00
+```
 
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
+### Salida
+La aplicación genera un reporte que incluye:
+- Tiempo de ejecución en milisegundos
+- Balance final
+- Detalles de la transacción de mayor monto
+- Conteo total de transacciones por tipo
 
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
+## Características Técnicas
 
-5. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
-
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
-
-6. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+- Desarrollado en .NET 8.0
+- Uso opcional de CsvHelper para procesamiento de CSV
+- Manejo de errores y validaciones:
+  - Existencia del archivo
+  - Formato del archivo (.csv)
+  - Estructura de columnas requeridas
+  - Parseo de datos
+- Medición de rendimiento usando Stopwatch
