@@ -1,7 +1,7 @@
-﻿﻿#region Validar el ingreso del parametro del archivo CSV
-
-using Procesador_Transacciones.Negocio;
+﻿using Procesador_Transacciones.Negocio;
 using System.Diagnostics;
+
+#region Validar el ingreso del parametro del archivo CSV
 
 if (args.Length == 0)
 {
@@ -11,12 +11,12 @@ if (args.Length == 0)
 }
 string csvPath = args[0];
 
+// Validaciones de verificacion de la existencia y validez del archivo CSV
 if (!File.Exists(csvPath) || !Path.IsPathRooted(csvPath))
 {
     Console.WriteLine($"Error: El archivo CSV no existe en la ruta: {csvPath}");
     return 1;
 }
-
 
 if (Path.GetExtension(csvPath).ToLower() != ".csv")
 {
@@ -46,13 +46,13 @@ var totalSumaCredito = transacciones.Where(c=>c.Tipo == "Crédito").Sum(t => t.M
 var totalSumaDebito = transacciones.Where(c=>c.Tipo == "Débito").Sum(t => t.Monto);
 var balanceFinal = totalSumaCredito - totalSumaDebito;
 
-
 // 2. Transaccion de Mayor monto
 var transaccionMaxima = transacciones.MaxBy(c => c.Monto);
 
 // 3. Conteo de transacciones (Credito - Debito)
 var totalTransaccionesCredito = transacciones.Count(c => c.Tipo == "Crédito");
 var totalTransaccionesDebito = transacciones.Count(c => c.Tipo == "Débito");
+
 
 
 stopwatch.Stop();
